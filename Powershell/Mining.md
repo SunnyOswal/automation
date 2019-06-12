@@ -1,4 +1,15 @@
-**Things to keep in mind**:  
+**5 Step Solution**:
+1. AZ PORTAL : Login
+2. AZ PORTAL : Get SubsId . Use in #5 .
+3. AZ PORTAL : Create SP using cloud shell . Use in #5 .
+4. AZ DEVOPS : Login
+5. AZ DEVOPS : Trigger deployment pipeline
+
+
+
+
+
+**Requirement**:  
 + Az Subscription details need to made configurable.
 + Az Resources configuration also needs to be made configurable but with default values.
 
