@@ -14,4 +14,4 @@ steps:
   inputs:
     targetType: 'inline'
     script: 'Install-Module -Name Az -AllowClobber -Force
-    Get-Module -ListAvailable'
+      Get-Module -ListAvailable'
