@@ -1,3 +1,7 @@
+**Things to keep in mind**:  
++ Az Subscription details need to made configurable.
++ Az Resources configuration also needs to be made configurable but with default values.
+
 **Files Required**:  
 + ARM Template       : VM-DeployAndRunScript.json
 + ARM Params         : parameters.json
