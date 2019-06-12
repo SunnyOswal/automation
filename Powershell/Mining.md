@@ -1,13 +1,10 @@
 **5 Step Solution**:
 1. AZ PORTAL : Login
 2. AZ PORTAL : Get SubsId . Use in #5 .
-3. AZ PORTAL : Create SP using cloud shell . Use in #5 .
+3. AZ PORTAL : Create SP using cloud shell . Use in #5 .  
+`az ad sp create-for-rbac --name azsp`
 4. AZ DEVOPS : Login
-5. AZ DEVOPS : Trigger deployment pipeline
-
-
-
-
+5. AZ DEVOPS : Trigger deployment pipeline and pass params from #2 & #3.  
 
 **Requirement**:  
 + Az Subscription details need to made configurable.
