@@ -8,6 +8,11 @@ Param
 [Parameter(Mandatory=$True)] $templateFilePath,
 [Parameter(Mandatory=$True)] $paramsFilePath
 )
+Write-Host "---------------------------------------"
+Get-Content $templateFilePath
+Write-Host "---------------------------------------"
+Get-Content $paramsFilePath
+Write-Host "---------------------------------------"
 
 $secpasswd = ConvertTo-SecureString $password -AsPlainText -Force
 $credential = New-Object System.Management.Automation.PSCredential ($username, $secpasswd)
