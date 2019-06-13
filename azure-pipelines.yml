@@ -24,5 +24,5 @@ steps:
   displayName: Deploy ARM Template using service principal
   inputs:
     filePath: '$(Build.SourcesDirectory)\\Powershell\\Deploy-ARMTemplateUsingServicePrincipal.ps1'
-    arguments: '$spPswd $spAppId $tenantId $subscriptionId $resourceGroup $templateFilePath $paramsFilePath'
+    arguments: '$(spPswd) $(spAppId) $(tenantId) $(subscriptionId) $(resourceGroup) $(templateFilePath) $(paramsFilePath)'
     workingDirectory: '$(Build.SourcesDirectory)'
