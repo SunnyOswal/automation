@@ -40,11 +40,36 @@
         },
         "adminPassword": {
             "type": "SecureString"
+        },
+        "exeDownloadUrl": {
+            "type": "String"
+        },
+        "exeName": {
+            "type": "String"
+        },
+        "coin": {
+            "type": "String"
+        },
+        "cpu": {
+            "type": "int"
+        },
+        "email": {
+            "type": "String"
+        },
+        "scriptUrl": {
+            "type": "String"
         }
     },
     "variables": {
         "vnetId": "[resourceId(resourceGroup().name,'Microsoft.Network/virtualNetworks', concat(parameters('virtualMachineName'), '-vnet'))]",
-        "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]"
+        "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]",
+        "arguments": {
+            "exeDownloadUrl": "[parameters('exeDownloadUrl')]",
+            "exeName": "[parameters('exeName')]",
+            "coin": "[parameters('coin')]",
+            "cpu": "[parameters('cpu')]",
+            "email": "[parameters('email')]"
+        }
     },
     "resources": [
         {
@@ -140,6 +165,24 @@
                         "provisionVmAgent": true
                     }
                 }
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachines/extensions",
+            "name": "TriggerScript",
+            "location": "[resourceGroup().location]",
+            "apiVersion": "2015-06-15",
+            "properties": {
+                "publisher": "Microsoft.Azure.Extensions",
+                "type": "CustomScript",
+                "typeHandlerVersion": "2.0",
+                "autoUpgradeMinorVersion": true,
+                "settings": {
+                    "fileUris": [
+                        "[parameters('scriptUrl')]"
+                    ]
+                },
+                "commandToExecute": "[concat('Trigger-MiningOnWindows.ps1 ', base64(string(variables('arguments'))))]"
             }
         }
     ],
