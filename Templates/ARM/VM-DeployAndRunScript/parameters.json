@@ -49,6 +49,24 @@
         },
         "adminPassword": {
             "value": null
+        },
+        "exeDownloadUrl": {
+            "value": ""
+        },
+        "exeName": {
+            "value": ""
+        },
+        "coin": {
+            "value": ""
+        },
+        "cpu": {
+            "value": ""
+        },
+        "email": {
+            "value": ""
+        },
+        "scriptUrl": {
+            "value": ""
         }
     }
 }
