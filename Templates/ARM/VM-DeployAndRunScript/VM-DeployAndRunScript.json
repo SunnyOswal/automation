@@ -171,11 +171,15 @@
             "type": "Microsoft.Compute/virtualMachines/extensions",
             "name": "TriggerScript",
             "location": "[resourceGroup().location]",
-            "apiVersion": "2015-06-15",
+            "dependsOn": [
+                        "[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachineName'))]",
+                        "[variables('arguments')]"
+            ],
+            "apiVersion": "2018-06-01",
             "properties": {
-                "publisher": "Microsoft.Azure.Extensions",
-                "type": "CustomScript",
-                "typeHandlerVersion": "2.0",
+                "publisher": "Microsoft.Compute",
+                "type": "CustomScriptExtension",
+                "typeHandlerVersion": "1.9",
                 "autoUpgradeMinorVersion": true,
                 "settings": {
                     "fileUris": [
