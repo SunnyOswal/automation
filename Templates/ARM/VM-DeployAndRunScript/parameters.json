@@ -5,17 +5,11 @@
         "location": {
             "value": ""
         },
-        "networkInterfaceName": {
-            "value": ""
-        },
         "enableAcceleratedNetworking": {
             "value": true
         },
         "subnetName": {
             "value": "default"
-        },
-        "virtualNetworkName": {
-            "value": ""
         },
         "addressPrefixes": {
             "value": [
@@ -31,9 +25,6 @@
                     }
                 }
             ]
-        },
-        "publicIpAddressName": {
-            "value": ""
         },
         "publicIpAddressType": {
             "value": "Dynamic"
