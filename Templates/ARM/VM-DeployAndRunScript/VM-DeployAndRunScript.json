@@ -62,13 +62,7 @@
     },
     "variables": {
         "vnetId": "[resourceId(resourceGroup().name,'Microsoft.Network/virtualNetworks', concat(parameters('virtualMachineName'), '-vnet'))]",
-        "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]",
-        "arguments": {
-            "exeDownloadUrl": "[parameters('exeDownloadUrl')]",
-            "exeName": "[parameters('exeName')]",
-            "coin": "[parameters('coin')]",
-            "cpu": "[parameters('cpu')]",
-            "email": "[parameters('email')]"
+        "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]"
         }
     },
     "resources": [
@@ -172,8 +166,7 @@
             "name": "TriggerScript",
             "location": "[resourceGroup().location]",
             "dependsOn": [
-                        "[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachineName'))]",
-                        "[variables('arguments')]"
+                        "[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachineName'))]"
             ],
             "apiVersion": "2018-06-01",
             "properties": {
@@ -186,7 +179,7 @@
                         "[parameters('scriptUrl')]"
                     ]
                 },
-                "commandToExecute": "[concat('Trigger-MiningOnWindows.ps1 ', base64(string(variables('arguments'))))]"
+                "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -file ', 'Trigger-MiningOnWindows.ps1', ' ', parameters('exeDownloadUrl'), ' ', parameters('exeName'), ' ', parameters('coin'), ' ', parameters('cpu'), ' ', parameters('email'))]"
             }
         }
     ],
