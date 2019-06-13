@@ -22,10 +22,12 @@ try
         {
             #Get values from variables
             $paramKey = $param.Name
+            Write-Host "Looking for $paramKey environment variable value. "
             $secretValue = (get-item env:$paramKey).Value
-
+                
             $paramValueHashTable["value"] = $secretValue
             $paramHashTable[$param.Name] = $paramValueHashTable
+            Write-Host "Found . Environment variable value will be updated in file. "
         }
         else
         {
