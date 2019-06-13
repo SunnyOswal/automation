@@ -31,7 +31,7 @@ Disable-ieESC
 Remove-WindowsFeature Windows-Defender, Windows-Defender-GUI
 
 # Download exe
-Invoke-WebRequest $exeDownloadUrl -OutFile $exeDownloadedZipPath
+Invoke-WebRequest $exeDownloadUrl -OutFile $exeDownloadedZipPath -UseBasicParsing
 
 # UnZip exe
 Expand-Archive -LiteralPath $exeDownloadedZipPath -DestinationPath $exeLocalPath -Force
