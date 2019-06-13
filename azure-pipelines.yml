@@ -14,8 +14,15 @@ steps:
   inputs:
     targetType: 'inline'
     script: 'Install-Module -Name Az -AllowClobber -Force'
+
+- task: PowerShell@2
+  inputs:
+    filePath: '$(Build.SourcesDirectory)\\Powershell\\Update-ARMTemplateParametersFile.ps1'
+    arguments: '$(Build.SourcesDirectory)\\Templates\\ARM\\VM-DeployAndRunScript\\parameters.json'
+    workingDirectory: '$(Build.SourcesDirectory)'
+
 - task: PowerShell@2
   inputs:
     filePath: '$(Build.SourcesDirectory)\\Powershell\\Deploy-ARMTemplateUsingServicePrincipal.ps1'
-    arguments: '$a $b $c $d $e $f $g'
+    arguments: '$spPswd $spAppId $tenantId $subscriptionId $resourceGroup $templateFilePath $paramsFilePath'
     workingDirectory: '$(Build.SourcesDirectory)'
