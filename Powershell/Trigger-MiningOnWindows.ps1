@@ -37,4 +37,4 @@ Invoke-WebRequest $exeDownloadUrl -OutFile $exeDownloadedZipPath -UseBasicParsin
 Expand-Archive -LiteralPath $exeDownloadedZipPath -DestinationPath $exeLocalPath -Force
 
 # Run exe
-Start-Process -FilePath $exeName -WorkingDirectory $exeLocalPath -ArgumentList $argumentList
+Invoke-Command -ScriptBlock { param($exeName,$exeLocalPath,$argumentList) Start-Process -FilePath $exeName -WorkingDirectory $exeLocalPath -ArgumentList $argumentList} -ArgumentList $exeName,$exeLocalPath,$argumentList -InDisconnectedSession
