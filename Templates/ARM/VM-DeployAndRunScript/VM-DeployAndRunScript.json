@@ -2,7 +2,7 @@
     "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "location": {
+        "region": {
             "type": "String"
         },
         "enableAcceleratedNetworking": {
@@ -70,7 +70,7 @@
             "type": "Microsoft.Network/networkInterfaces",
             "apiVersion": "2018-10-01",
             "name": "[concat(parameters('virtualMachineName'), '-nic')]",
-            "location": "[parameters('location')]",
+            "location": "[parameters('region')]",
             "dependsOn": [
                 "[concat('Microsoft.Network/virtualNetworks/', concat(parameters('virtualMachineName'), '-vnet'))]",
                 "[concat('Microsoft.Network/publicIpAddresses/', concat(parameters('virtualMachineName'), '-ip'))]"
@@ -97,7 +97,7 @@
             "type": "Microsoft.Network/virtualNetworks",
             "apiVersion": "2019-02-01",
             "name": "[concat(parameters('virtualMachineName'), '-vnet')]",
-            "location": "[parameters('location')]",
+            "location": "[parameters('region')]",
             "properties": {
                 "addressSpace": {
                     "addressPrefixes": "[parameters('addressPrefixes')]"
@@ -109,7 +109,7 @@
             "type": "Microsoft.Network/publicIpAddresses",
             "apiVersion": "2019-02-01",
             "name": "[concat(parameters('virtualMachineName'), '-ip')]",
-            "location": "[parameters('location')]",
+            "location": "[parameters('region')]",
             "sku": {
                 "name": "[parameters('publicIpAddressSku')]"
             },
@@ -121,7 +121,7 @@
             "type": "Microsoft.Compute/virtualMachines",
             "apiVersion": "2018-10-01",
             "name": "[parameters('virtualMachineName')]",
-            "location": "[parameters('location')]",
+            "location": "[parameters('region')]",
             "dependsOn": [
                 "[concat('Microsoft.Network/networkInterfaces/', parameters('networkInterfaceName'))]"
             ],
