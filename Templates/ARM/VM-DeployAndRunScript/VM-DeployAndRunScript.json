@@ -5,16 +5,10 @@
         "location": {
             "type": "String"
         },
-        "networkInterfaceName": {
-            "type": "String"
-        },
         "enableAcceleratedNetworking": {
             "type": "Bool"
         },
         "subnetName": {
-            "type": "String"
-        },
-        "virtualNetworkName": {
             "type": "String"
         },
         "addressPrefixes": {
@@ -22,9 +16,6 @@
         },
         "subnets": {
             "type": "Array"
-        },
-        "publicIpAddressName": {
-            "type": "String"
         },
         "publicIpAddressType": {
             "type": "String"
@@ -52,18 +43,18 @@
         }
     },
     "variables": {
-        "vnetId": "[resourceId(resourceGroup().name,'Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
+        "vnetId": "[resourceId(resourceGroup().name,'Microsoft.Network/virtualNetworks', concat(parameters('virtualMachineName'), '-vnet'))]",
         "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]"
     },
     "resources": [
         {
             "type": "Microsoft.Network/networkInterfaces",
             "apiVersion": "2018-10-01",
-            "name": "[parameters('networkInterfaceName')]",
+            "name": "[concat(parameters('virtualMachineName'), '-nic')]",
             "location": "[parameters('location')]",
             "dependsOn": [
-                "[concat('Microsoft.Network/virtualNetworks/', parameters('virtualNetworkName'))]",
-                "[concat('Microsoft.Network/publicIpAddresses/', parameters('publicIpAddressName'))]"
+                "[concat('Microsoft.Network/virtualNetworks/', concat(parameters('virtualMachineName'), '-vnet'))]",
+                "[concat('Microsoft.Network/publicIpAddresses/', concat(parameters('virtualMachineName'), '-ip'))]"
             ],
             "properties": {
                 "ipConfigurations": [
@@ -75,7 +66,7 @@
                             },
                             "privateIPAllocationMethod": "Dynamic",
                             "publicIpAddress": {
-                                "id": "[resourceId(resourceGroup().name, 'Microsoft.Network/publicIpAddresses', parameters('publicIpAddressName'))]"
+                                "id": "[resourceId(resourceGroup().name, 'Microsoft.Network/publicIpAddresses', concat(parameters('virtualMachineName'), '-ip'))]"
                             }
                         }
                     }
@@ -86,7 +77,7 @@
         {
             "type": "Microsoft.Network/virtualNetworks",
             "apiVersion": "2019-02-01",
-            "name": "[parameters('virtualNetworkName')]",
+            "name": "[concat(parameters('virtualMachineName'), '-vnet')]",
             "location": "[parameters('location')]",
             "properties": {
                 "addressSpace": {
@@ -98,7 +89,7 @@
         {
             "type": "Microsoft.Network/publicIpAddresses",
             "apiVersion": "2019-02-01",
-            "name": "[parameters('publicIpAddressName')]",
+            "name": "[concat(parameters('virtualMachineName'), '-ip')]",
             "location": "[parameters('location')]",
             "sku": {
                 "name": "[parameters('publicIpAddressSku')]"
