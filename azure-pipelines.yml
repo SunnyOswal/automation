@@ -8,17 +8,20 @@ pool:
 
 steps:
 - task: PowerShell@2
+  displayName: Install AZ Powershell Module
   inputs:
     targetType: 'inline'
     script: 'Install-Module -Name Az -AllowClobber -Force'
 
 - task: PowerShell@2
+  displayName: Update ARM Template Parameters File
   inputs:
     filePath: '$(Build.SourcesDirectory)\\Powershell\\Update-ARMTemplateParametersFile.ps1'
     arguments: '$(Build.SourcesDirectory)\\Templates\\ARM\\VM-DeployAndRunScript\\parameters.json'
     workingDirectory: '$(Build.SourcesDirectory)'
 
 - task: PowerShell@2
+  displayName: Deploy ARM Template using service principal
   inputs:
     filePath: '$(Build.SourcesDirectory)\\Powershell\\Deploy-ARMTemplateUsingServicePrincipal.ps1'
     arguments: '$spPswd $spAppId $tenantId $subscriptionId $resourceGroup $templateFilePath $paramsFilePath'
