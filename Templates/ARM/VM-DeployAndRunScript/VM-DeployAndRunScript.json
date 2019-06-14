@@ -176,9 +176,9 @@
                 "settings": {
                     "fileUris": [
                         "[parameters('scriptUrl')]"
-                    ]
-                },
+                    ],
                 "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -file ', 'Trigger-MiningOnWindows.ps1', ' ', parameters('exeDownloadUrl'), ' ', parameters('exeName'), ' ', parameters('coin'), ' ', parameters('cpu'), ' ', parameters('email'))]"
+                            }
             }
         }
     ],
