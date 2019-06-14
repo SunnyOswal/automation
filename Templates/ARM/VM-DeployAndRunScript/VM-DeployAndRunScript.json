@@ -63,8 +63,7 @@
     "variables": {
         "vnetId": "[resourceId(resourceGroup().name,'Microsoft.Network/virtualNetworks', concat(parameters('virtualMachineName'), '-vnet'))]",
         "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]"
-        }
-    },
+        },
     "resources": [
         {
             "type": "Microsoft.Network/networkInterfaces",
@@ -123,7 +122,7 @@
             "name": "[parameters('virtualMachineName')]",
             "location": "[parameters('region')]",
             "dependsOn": [
-                "[concat('Microsoft.Network/networkInterfaces/', parameters('networkInterfaceName'))]"
+                "[concat('Microsoft.Network/networkInterfaces/', concat(parameters('virtualMachineName'), '-nic'))]"
             ],
             "properties": {
                 "hardwareProfile": {
@@ -146,7 +145,7 @@
                 "networkProfile": {
                     "networkInterfaces": [
                         {
-                            "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaceName'))]"
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(parameters('virtualMachineName'), '-nic'))]"
                         }
                     ]
                 },
