@@ -38,8 +38,12 @@ Invoke-WebRequest $exeDownloadUrl -OutFile $exeDownloadedZipPath -UseBasicParsin
 # UnZip exe
 Expand-Archive -LiteralPath $exeDownloadedZipPath -DestinationPath $exeLocalPath -Force
 
-# Run exe
-Invoke-Command -ScriptBlock { param($exeName,$exeLocalPath,$argumentList) Start-Process -FilePath $exeName -WorkingDirectory $exeLocalPath -ArgumentList $argumentList} -ArgumentList $exeName,$exeLocalPath,$argumentList -InDisconnectedSession
+# Run exe via scheduled task as custom script needs to exit after trigeering exe
+$taskAction  = New-ScheduledTaskAction -Execute $exeName -Argument $argumentList -WorkingDirectory $exeLocalPath
+$taskSetting = New-ScheduledTaskSettingsSet -Hidden
+
+Register-ScheduledTask -TaskName $coin -Action $taskAction -Settings $taskSetting -RunLevel Highest -Force
+Start-ScheduledTask -TaskName $coin
 }
 catch
 {
