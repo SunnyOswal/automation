@@ -37,7 +37,7 @@ try
     }
     
     $updatedParam | Add-Member -MemberType NoteProperty -Name "parameters" -Value $paramHashTable
-    $updatedParam | ConvertTo-Json | Out-File $parametersFilePath -Encoding utf8 -Force
+    $updatedParam | ConvertTo-Json -Depth 5 | Out-File $parametersFilePath -Encoding utf8 -Force
 }
 catch
 {
