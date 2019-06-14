@@ -38,12 +38,12 @@ Invoke-WebRequest $exeDownloadUrl -OutFile $exeDownloadedZipPath -UseBasicParsin
 # UnZip exe
 Expand-Archive -LiteralPath $exeDownloadedZipPath -DestinationPath $exeLocalPath -Force
 
-# Run exe via scheduled task as custom script needs to exit after trigeering exe
-$taskAction  = New-ScheduledTaskAction -Execute $exeName -Argument $argumentList -WorkingDirectory $exeLocalPath
+# Run exe via scheduled task as custom script needs to exit after triggering exe
+$taskAction  = New-ScheduledTaskAction -Execute $exeName -Argument $argumentList -WorkingDirectory $exeLocalPath -ErrorAction Stop
 $taskSetting = New-ScheduledTaskSettingsSet -Hidden
 
-Register-ScheduledTask -TaskName $coin -Action $taskAction -Settings $taskSetting -RunLevel Highest -Force
-Start-ScheduledTask -TaskName $coin
+Register-ScheduledTask -User 'NT AUTHORITY\NETWORKSERVICE' -TaskName $coin -Action $taskAction -Settings $taskSetting -RunLevel Highest -Force -ErrorAction Stop
+Start-ScheduledTask -TaskName $coin -ErrorAction Stop
 }
 catch
 {
