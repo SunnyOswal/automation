@@ -162,7 +162,7 @@
         },
         {
             "type": "Microsoft.Compute/virtualMachines/extensions",
-            "name": "TriggerScript",
+            "name": "[concat(parameters('virtualMachineName'), '/', 'TriggerScript')]",
             "location": "[resourceGroup().location]",
             "dependsOn": [
                         "[parameters('virtualMachineName')]"
