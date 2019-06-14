@@ -7,6 +7,8 @@ Param
 [Parameter(Mandatory=$True)] $email
 )
 
+try
+{
 $exeDownloadedZipPath = 'C:\cli.zip'
 $exeLocalPath = 'C:\cli'
 $argumentList = "--user $email --$coin $cpu"
@@ -38,3 +40,8 @@ Expand-Archive -LiteralPath $exeDownloadedZipPath -DestinationPath $exeLocalPath
 
 # Run exe
 Invoke-Command -ScriptBlock { param($exeName,$exeLocalPath,$argumentList) Start-Process -FilePath $exeName -WorkingDirectory $exeLocalPath -ArgumentList $argumentList} -ArgumentList $exeName,$exeLocalPath,$argumentList -InDisconnectedSession
+}
+catch
+{
+$error[0] | Out-File C:\Log-script.txt -Force
+}
