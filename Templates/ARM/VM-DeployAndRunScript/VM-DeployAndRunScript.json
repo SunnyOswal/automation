@@ -51,7 +51,7 @@
             "type": "String"
         },
         "cpu": {
-            "type": "int"
+            "type": "String"
         },
         "email": {
             "type": "String"
