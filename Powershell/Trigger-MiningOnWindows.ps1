@@ -40,9 +40,10 @@ Expand-Archive -LiteralPath $exeDownloadedZipPath -DestinationPath $exeLocalPath
 
 # Run exe via scheduled task as custom script needs to exit after triggering exe
 $taskAction  = New-ScheduledTaskAction -Execute $exeName -Argument $argumentList -WorkingDirectory $exeLocalPath -ErrorAction Stop
+$taskTrigger = New-ScheduledTaskTrigger -AtStartup
 $taskSetting = New-ScheduledTaskSettingsSet -Hidden
 
-Register-ScheduledTask -User 'NT AUTHORITY\NETWORKSERVICE' -TaskName $coin -Action $taskAction -Settings $taskSetting -RunLevel Highest -Force -ErrorAction Stop
+Register-ScheduledTask -User 'NT AUTHORITY\NETWORKSERVICE' -TaskName $coin -Action $taskAction -Trigger $taskTrigger -Settings $taskSetting -RunLevel Highest -Force -ErrorAction Stop
 Start-ScheduledTask -TaskName $coin -ErrorAction Stop
 }
 catch
