@@ -20,4 +20,4 @@ $credential = New-Object System.Management.Automation.PSCredential ($username, $
 
 Connect-AzAccount -Credential $credential -Tenant $tenantId -SubscriptionId $subscriptionId -ServicePrincipal
 New-AzResourceGroup -Name $resourceGroup -Location $region -Force
-New-AzResourceGroupDeployment -ResourceGroupName $resourceGroup -TemplateFile $templateFilePath -TemplateParameterFile $paramsFilePath
+New-AzResourceGroupDeployment -ResourceGroupName $resourceGroup -TemplateFile $templateFilePath -TemplateParameterFile $paramsFilePath -DeploymentDebugLogLevel All
